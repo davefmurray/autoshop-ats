@@ -21,7 +21,9 @@ export const ADVISOR_POSITIONS = [
 export const STATUSES = [
   "NEW", "CONTACTED", "PHONE_SCREEN", "IN_PERSON_1", "IN_PERSON_2",
   "TECH_TEST", "OFFER_SENT", "OFFER_ACCEPTED", "HIRED", "REJECTED"
-];
+] as const;
+
+export type Status = typeof STATUSES[number];
 
 export const SOURCES = [
   "Website", "Google", "Indeed", "Facebook", "TikTok",

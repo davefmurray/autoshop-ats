@@ -33,7 +33,7 @@ export function Dashboard() {
   });
 
   const columns = useMemo(() => [
-    columnHelper.accessor('name', {
+    columnHelper.accessor('full_name', {
       header: 'Name',
       cell: info => (
         <Link
@@ -44,16 +44,12 @@ export function Dashboard() {
         </Link>
       ),
     }),
-    columnHelper.accessor('position', {
+    columnHelper.accessor('position_applied', {
       header: 'Position',
     }),
     columnHelper.accessor('status', {
       header: 'Status',
       cell: info => <StatusBadge status={info.getValue() as Status} />,
-    }),
-    columnHelper.accessor('experience_years', {
-      header: 'Experience',
-      cell: info => `${info.getValue()} yrs`,
     }),
     columnHelper.accessor('source', {
       header: 'Source',
