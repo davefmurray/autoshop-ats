@@ -65,3 +65,4 @@ See `.env.example` files in `/backend` and `/frontend`
 ## License
 
 MIT
+# Auto-deploy trigger Thu Dec  4 12:26:32 EST 2025
