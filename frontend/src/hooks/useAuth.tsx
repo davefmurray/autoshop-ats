@@ -23,28 +23,42 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchShop = async (userId: string) => {
     try {
       // Get user profile with shop_id
-      const { data: profile } = await supabase
+      const { data: profiles, error: profileError } = await supabase
         .from('profiles')
         .select('shop_id')
-        .eq('id', userId)
-        .single();
-      
+        .eq('id', userId);
+
+      if (profileError) {
+        console.error('Error fetching profile:', profileError);
+        setShop(null);
+        return;
+      }
+
+      const profile = profiles?.[0];
       if (profile?.shop_id) {
         // Get shop details
-        const { data: shopData } = await supabase
+        const { data: shops, error: shopError } = await supabase
           .from('shops')
           .select('id, name, slug, settings')
-          .eq('id', profile.shop_id)
-          .single();
-        
+          .eq('id', profile.shop_id);
+
+        if (shopError) {
+          console.error('Error fetching shop:', shopError);
+          setShop(null);
+          return;
+        }
+
+        const shopData = shops?.[0];
         if (shopData) {
+          console.log('Shop fetched successfully:', shopData);
           setShop(shopData as Shop);
           return;
         }
       }
+      console.log('No shop found for user');
       setShop(null);
     } catch (err) {
-      console.error('Error fetching shop:', err);
+      console.error('Unexpected error in fetchShop:', err);
       setShop(null);
     }
   };
