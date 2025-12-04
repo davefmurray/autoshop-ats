@@ -8,7 +8,7 @@ import {
   getFilteredRowModel,
   flexRender,
   createColumnHelper,
-  SortingState,
+  type SortingState,
 } from '@tanstack/react-table';
 import { listApplicants } from '../lib/api';
 import { Layout } from '../components/Layout';
