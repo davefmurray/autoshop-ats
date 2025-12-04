@@ -101,6 +101,10 @@ export function ApplicantView() {
     return next.filter(s => s !== current);
   };
 
+  // Get form_data values with defaults
+  const formData = applicant.form_data || {};
+  const certifications = formData.certifications || [];
+
   return (
     <Layout>
       <div className="space-y-6">
@@ -110,10 +114,10 @@ export function ApplicantView() {
             <Link to="/" className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block">
               ← Back to applicants
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900">{applicant.name}</h1>
+            <h1 className="text-2xl font-bold text-gray-900">{applicant.full_name}</h1>
             <div className="flex items-center gap-3 mt-2">
               <StatusBadge status={applicant.status as Status} />
-              <span className="text-gray-500">{applicant.position}</span>
+              <span className="text-gray-500">{applicant.position_applied}</span>
             </div>
           </div>
           <button
@@ -150,20 +154,31 @@ export function ApplicantView() {
             {/* Experience */}
             <div className="card">
               <h2 className="text-lg font-semibold mb-4">Experience & Qualifications</h2>
-              <div className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-500">Years of Experience</p>
-                  <p className="font-medium">{applicant.experience_years} years</p>
+                  <p className="font-medium">{formData.experience_years ?? 'Not specified'} {formData.experience_years ? 'years' : ''}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Expected Pay</p>
-                  <p className="font-medium">{applicant.expected_pay || 'Not specified'}</p>
+                  <p className="font-medium">{formData.expected_pay || 'Not specified'}</p>
                 </div>
                 <div>
+                  <p className="text-sm text-gray-500">Current/Previous Employer</p>
+                  <p className="font-medium">{formData.current_employer || 'Not specified'}</p>
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500">Available Start</p>
+                  <p className="font-medium">{formData.available_start || 'Not specified'}</p>
+                </div>
+              </div>
+              
+              <div className="mt-4 space-y-4">
+                <div>
                   <p className="text-sm text-gray-500">Certifications</p>
-                  {applicant.certifications.length > 0 ? (
+                  {certifications.length > 0 ? (
                     <div className="flex flex-wrap gap-2 mt-1">
-                      {applicant.certifications.map(cert => (
+                      {certifications.map((cert: string) => (
                         <span key={cert} className="bg-gray-100 text-gray-700 px-2 py-1 rounded text-sm">
                           {cert}
                         </span>
@@ -173,11 +188,27 @@ export function ApplicantView() {
                     <p className="text-gray-500">None listed</p>
                   )}
                 </div>
-                {applicant.resume_url && (
+
+                <div className="flex gap-4">
+                  <div>
+                    <p className="text-sm text-gray-500">Has Tools</p>
+                    <p className="font-medium">{formData.has_tools || 'Not specified'}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Valid License</p>
+                    <p className="font-medium">{formData.has_valid_license ? 'Yes' : 'No'}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-500">Can Work Saturdays</p>
+                    <p className="font-medium">{formData.can_work_saturdays ? 'Yes' : 'No'}</p>
+                  </div>
+                </div>
+
+                {formData.resume_url && (
                   <div>
                     <p className="text-sm text-gray-500">Resume</p>
                     <a
-                      href={applicant.resume_url}
+                      href={formData.resume_url}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-blue-600 hover:text-blue-800"
@@ -220,7 +251,7 @@ export function ApplicantView() {
                 <p className="text-gray-500 text-center py-4">No notes yet</p>
               ) : (
                 <div className="space-y-4">
-                  {notes.map(note => (
+                  {notes.map((note: any) => (
                     <div key={note.id} className="border-l-2 border-gray-200 pl-4 py-2">
                       <p className="text-gray-900">{note.message}</p>
                       <p className="text-sm text-gray-500 mt-1">
@@ -263,11 +294,11 @@ export function ApplicantView() {
                     key={status}
                     onClick={() => handleStatusChange(status)}
                     disabled={updateMutation.isPending}
-                    className={`w-full btn ${
+                    className={'w-full btn ' + (
                       status === 'HIRED' ? 'btn-success' :
                       status === 'REJECTED' ? 'btn-danger' :
                       'btn-secondary'
-                    }`}
+                    )}
                   >
                     Move to {status.replace('_', ' ')}
                   </button>
@@ -275,11 +306,11 @@ export function ApplicantView() {
               </div>
             </div>
 
-            {/* Applicant Notes (quick notes field) */}
-            {applicant.notes && (
+            {/* Application Notes */}
+            {formData.notes && (
               <div className="card">
                 <h2 className="text-lg font-semibold mb-4">Application Notes</h2>
-                <p className="text-gray-700 whitespace-pre-wrap">{applicant.notes}</p>
+                <p className="text-gray-700 whitespace-pre-wrap">{formData.notes}</p>
               </div>
             )}
           </div>
