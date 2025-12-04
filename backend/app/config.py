@@ -1,18 +1,19 @@
 from pydantic_settings import BaseSettings
 from functools import lru_cache
+from typing import Optional
 
 
 class Settings(BaseSettings):
-    # Database
-    database_url: str
-
-    # Supabase
+    # Supabase (required)
     supabase_url: str
     supabase_service_key: str
     supabase_jwt_secret: str
 
     # CORS
     frontend_url: str = "http://localhost:5173"
+    
+    # Database URL (optional - not needed when using Supabase client)
+    database_url: Optional[str] = None
 
     class Config:
         env_file = ".env"
