@@ -1,110 +1,73 @@
-// Status values
-export const STATUSES = [
-  'NEW',
-  'CONTACTED',
-  'PHONE_SCREEN',
-  'IN_PERSON_1',
-  'IN_PERSON_2',
-  'OFFER_SENT',
-  'HIRED',
-  'REJECTED',
-] as const;
-
-export type Status = typeof STATUSES[number];
-
-// Position values
 export const POSITIONS = [
-  'Technician',
-  'GS',
-  'Service Advisor',
-  'Manager',
-  'Tire Tech',
-  'Lube Tech',
-] as const;
+  "Master Technician (A-Tech)", "B-Tech", "C-Tech", "Lube Technician",
+  "Transmission Technician", "GS Technician", "Tire Technician",
+  "Service Advisor", "Service Writer (Junior Advisor)", "Service Manager",
+  "General Manager", "Customer Service Agent", "Parts Manager",
+  "Parts Runner", "Shop Foreman / Lead Tech", "Shop Porter",
+  "Bookkeeper", "Marketing Coordinator", "Other"
+];
 
-export type Position = typeof POSITIONS[number];
+export const TECH_POSITIONS = [
+  "Master Technician (A-Tech)", "B-Tech", "C-Tech", "Lube Technician",
+  "Transmission Technician", "GS Technician", "Tire Technician",
+  "Shop Foreman / Lead Tech"
+];
 
-// Source values
+export const ADVISOR_POSITIONS = [
+  "Service Advisor", "Service Writer (Junior Advisor)", "Service Manager",
+  "General Manager", "Customer Service Agent"
+];
+
+export const STATUSES = [
+  "NEW", "CONTACTED", "PHONE_SCREEN", "IN_PERSON_1", "IN_PERSON_2",
+  "TECH_TEST", "OFFER_SENT", "OFFER_ACCEPTED", "HIRED", "REJECTED"
+];
+
 export const SOURCES = [
-  'Website',
-  'Indeed',
-  'Referral',
-  'Walk-in',
-  'Other',
-] as const;
+  "Website", "Google", "Indeed", "Facebook", "TikTok",
+  "Referral", "Walk-in", "ZipRecruiter", "Returning Applicant", "Other"
+];
 
-// Applicant types
+export const ASE_CERTS = [
+  "A1 Engine Repair", "A2 Automatic Trans/Transaxle", "A3 Manual Drive Train & Axles",
+  "A4 Suspension & Steering", "A5 Brakes", "A6 Electrical/Electronic Systems",
+  "A7 Heating & Air Conditioning", "A8 Engine Performance",
+  "L1 Advanced Engine Performance", "X1 Exhaust Systems",
+  "G1 Auto Maintenance & Light Repair", "Other ASE"
+];
+
+export const SKILL_LEVELS = ["No experience", "Basic", "Intermediate", "Advanced"];
+export const CONTACT_METHODS = ["Phone", "Text", "Email"];
+export const TOOL_OPTIONS = ["Yes", "No", "Some"];
+
+export interface Shop {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 export interface Applicant {
   id: string;
   created_at: string;
   updated_at: string;
-  name: string;
-  phone: string;
+  shop_id: string;
+  full_name: string;
   email: string;
-  position: string;
-  experience_years: number;
-  certifications: string[];
-  expected_pay: string | null;
+  phone: string;
+  position_applied: string;
+  status: string;
   source: string | null;
-  resume_url: string | null;
-  notes: string | null;
-  status: Status;
+  form_data: Record<string, any>;
+  internal_data: Record<string, any>;
 }
 
 export interface ApplicantListItem {
   id: string;
   created_at: string;
-  name: string;
-  position: string;
-  status: Status;
-  experience_years: number;
-  source: string | null;
-}
-
-export interface ApplicantCreate {
-  name: string;
+  full_name: string;
+  email: string;
   phone: string;
-  email: string;
-  position: string;
-  experience_years: number;
-  certifications: string[];
-  expected_pay?: string;
-  source?: string;
-  resume_url?: string;
-  notes?: string;
-}
-
-export interface ApplicantUpdate {
-  name?: string;
-  phone?: string;
-  email?: string;
-  position?: string;
-  experience_years?: number;
-  certifications?: string[];
-  expected_pay?: string;
-  source?: string;
-  resume_url?: string;
-  notes?: string;
-  status?: Status;
-}
-
-// Note types
-export interface Note {
-  id: string;
-  applicant_id: string;
-  created_at: string;
-  added_by: string | null;
-  added_by_id: string | null;
-  message: string;
-}
-
-export interface NoteCreate {
-  message: string;
-  added_by?: string;
-}
-
-// Auth types
-export interface User {
-  id: string;
-  email: string;
+  position_applied: string;
+  status: string;
+  source: string | null;
 }

@@ -3,10 +3,11 @@ import { useAuth } from '../hooks/useAuth';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
+  requireShop?: boolean;
 }
 
-export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { user, loading } = useAuth();
+export function ProtectedRoute({ children, requireShop = true }: ProtectedRouteProps) {
+  const { user, shop, loading } = useAuth();
 
   if (loading) {
     return (
@@ -18,6 +19,11 @@ export function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   if (!user) {
     return <Navigate to="/login" replace />;
+  }
+
+  // If shop is required but user doesn't have one, redirect to setup
+  if (requireShop && !shop) {
+    return <Navigate to="/setup-shop" replace />;
   }
 
   return <>{children}</>;

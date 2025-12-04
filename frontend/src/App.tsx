@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AuthProvider } from './hooks/useAuth';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Login } from './pages/Login';
+import { SetupShop } from './pages/SetupShop';
 import { Apply } from './pages/Apply';
 import { Dashboard } from './pages/Dashboard';
 import { ApplicantView } from './pages/ApplicantView';
@@ -10,7 +11,7 @@ import { ApplicantView } from './pages/ApplicantView';
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 1000 * 60, // 1 minute
+      staleTime: 1000 * 60,
       retry: 1,
     },
   },
@@ -26,7 +27,17 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/apply" element={<Apply />} />
 
-            {/* Protected routes */}
+            {/* Setup shop (auth required, no shop required) */}
+            <Route
+              path="/setup-shop"
+              element={
+                <ProtectedRoute requireShop={false}>
+                  <SetupShop />
+                </ProtectedRoute>
+              }
+            />
+
+            {/* Protected routes (require auth + shop) */}
             <Route
               path="/"
               element={
