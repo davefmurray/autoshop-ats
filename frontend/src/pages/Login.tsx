@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 
@@ -7,27 +7,35 @@ export function Login() {
   const [password, setPassword] = useState('');
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { signIn, signUp } = useAuth();
+  const [submitting, setSubmitting] = useState(false);
+  const { signIn, signUp, user, loading } = useAuth();
   const navigate = useNavigate();
+
+  // Redirect to dashboard if already logged in
+  useEffect(() => {
+    if (user && !loading) {
+      navigate('/', { replace: true });
+    }
+  }, [user, loading, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
+    setSubmitting(true);
 
     try {
       if (isSignUp) {
         await signUp(email, password);
         setError('Check your email for confirmation link');
+        setSubmitting(false);
       } else {
         await signIn(email, password);
-        navigate('/');
+        // Don't set submitting to false or navigate here
+        // Let the useEffect handle redirect when user state updates
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Authentication failed');
-    } finally {
-      setLoading(false);
+      setSubmitting(false);
     }
   };
 
@@ -84,10 +92,10 @@ export function Login() {
           <div>
             <button
               type="submit"
-              disabled={loading}
+              disabled={submitting || loading}
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
             >
-              {loading ? 'Loading...' : isSignUp ? 'Sign up' : 'Sign in'}
+              {(submitting || loading) ? 'Loading...' : isSignUp ? 'Sign up' : 'Sign in'}
             </button>
           </div>
 

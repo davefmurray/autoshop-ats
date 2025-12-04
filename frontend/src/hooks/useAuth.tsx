@@ -57,6 +57,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await fetchShop(session.user.id);
       }
       setLoading(false);
+    }).catch((err) => {
+      console.error('Error getting session:', err);
+      setLoading(false);
     });
 
     // Listen for auth changes
@@ -67,6 +70,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setShop(null);
       }
+      // Ensure loading is false after auth state change
+      setLoading(false);
     });
 
     return () => subscription.unsubscribe();
