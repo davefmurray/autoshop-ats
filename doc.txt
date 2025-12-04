@@ -1,0 +1,735 @@
+{
+  "sections": [
+    {
+      "id": "core_info",
+      "label": "Core Candidate Info",
+      "description": "Basic identifying information and what position they want.",
+      "fields": [
+        {
+          "key": "full_name",
+          "label": "Full Name",
+          "type": "text",
+          "required": true,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "phone",
+          "label": "Phone Number",
+          "type": "text",
+          "required": true,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "email",
+          "label": "Email",
+          "type": "text",
+          "required": true,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "address",
+          "label": "Address",
+          "type": "textarea",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "preferred_contact_method",
+          "label": "Preferred Contact Method",
+          "type": "select",
+          "options": ["Phone", "Text", "Email"],
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "position_applied",
+          "label": "Position Applied For",
+          "type": "select",
+          "options": [
+            "Master Technician (A-Tech)",
+            "B-Tech",
+            "C-Tech",
+            "Lube Technician",
+            "Transmission Technician",
+            "GS Technician",
+            "Tire Technician",
+            "Service Advisor",
+            "Service Writer (Junior Advisor)",
+            "Service Manager",
+            "General Manager",
+            "Customer Service Agent",
+            "Parts Manager",
+            "Parts Runner",
+            "Shop Foreman / Lead Tech",
+            "Shop Porter",
+            "Bookkeeper",
+            "Marketing Coordinator",
+            "Other"
+          ],
+          "required": true,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "other_position_text",
+          "label": "If Other, Describe Position",
+          "type": "text",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"],
+          "conditional": {
+            "depends_on": "position_applied",
+            "value": "Other"
+          }
+        },
+        {
+          "key": "source",
+          "label": "How Did You Hear About Us?",
+          "type": "select",
+          "options": [
+            "Website",
+            "Google",
+            "Indeed",
+            "Facebook",
+            "TikTok",
+            "Referral",
+            "Walk-in",
+            "ZipRecruiter",
+            "Returning Applicant",
+            "Other"
+          ],
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "referring_employee",
+          "label": "If Referral, Who Referred You?",
+          "type": "text",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"],
+          "conditional": {
+            "depends_on": "source",
+            "value": "Referral"
+          }
+        }
+      ]
+    },
+    {
+      "id": "experience",
+      "label": "Experience & Background",
+      "description": "Overall time in the industry and past roles.",
+      "fields": [
+        {
+          "key": "years_in_industry",
+          "label": "Years in Automotive Industry",
+          "type": "number",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "years_in_role",
+          "label": "Years in This Role",
+          "type": "number",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "previous_shops",
+          "label": "Previous Shops Worked At",
+          "type": "textarea",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"],
+          "placeholder": "List shop names, dates, and primary duties."
+        },
+        {
+          "key": "current_or_last_pay",
+          "label": "Current or Most Recent Pay (Hourly/Flat)",
+          "type": "text",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "expected_pay",
+          "label": "Minimum Pay You Would Consider",
+          "type": "text",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "has_tools",
+          "label": "Do You Have Your Own Tools?",
+          "type": "select",
+          "options": ["Yes", "No", "Some"],
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "tool_notes",
+          "label": "Tool Set Details (optional)",
+          "type": "textarea",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        }
+      ]
+    },
+    {
+      "id": "documents",
+      "label": "Documents & Uploads",
+      "description": "Resumes, certifications, and licenses.",
+      "fields": [
+        {
+          "key": "resume_url",
+          "label": "Resume Upload",
+          "type": "file",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "cert_documents",
+          "label": "Certifications Upload (ASE, OEM, etc.)",
+          "type": "file_multi",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "drivers_license_image",
+          "label": "Driver's License Photo",
+          "type": "file",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        }
+      ]
+    },
+    {
+      "id": "certifications",
+      "label": "Certifications",
+      "description": "ASE and other certifications.",
+      "fields": [
+        {
+          "key": "ase_certs",
+          "label": "ASE Certifications",
+          "type": "multi_select",
+          "options": [
+            "A1 Engine Repair",
+            "A2 Automatic Trans/Transaxle",
+            "A3 Manual Drive Train & Axles",
+            "A4 Suspension & Steering",
+            "A5 Brakes",
+            "A6 Electrical/Electronic Systems",
+            "A7 Heating & Air Conditioning",
+            "A8 Engine Performance",
+            "L1 Advanced Engine Performance",
+            "X1 Exhaust Systems",
+            "G1 Auto Maintenance & Light Repair",
+            "Other ASE"
+          ],
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "other_certs_text",
+          "label": "Other Certifications (OEM, Hybrid/EV, etc.)",
+          "type": "textarea",
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        }
+      ]
+    },
+    {
+      "id": "tech_skills",
+      "label": "Technician Skills",
+      "description": "Section 4 – Tech skills: on application AND editable by admin.",
+      "applies_to_positions": [
+        "Master Technician (A-Tech)",
+        "B-Tech",
+        "C-Tech",
+        "Lube Technician",
+        "Transmission Technician",
+        "GS Technician",
+        "Tire Technician",
+        "Shop Foreman / Lead Tech"
+      ],
+      "fields": [
+        {
+          "key": "skill_brakes",
+          "label": "Brakes",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_suspension",
+          "label": "Suspension",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_alignments",
+          "label": "Alignments",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_engine_repair",
+          "label": "Engine Repair",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_engine_performance",
+          "label": "Engine Performance / Drivability",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_diagnostics",
+          "label": "Diagnostics (Scan Tool / Electrical)",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_electrical",
+          "label": "Electrical Systems",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_hvac",
+          "label": "Heating & A/C",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_transmission_rr",
+          "label": "Transmission R&R",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_transmission_rebuild",
+          "label": "Transmission Rebuild",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_tires",
+          "label": "Tires (Mount, Balance, Repair)",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_hybrid_ev",
+          "label": "Hybrid / EV Experience",
+          "type": "select",
+          "options": ["None", "Some exposure", "Comfortable", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_diesel",
+          "label": "Diesel Experience",
+          "type": "select",
+          "options": ["None", "Light duty only", "Medium duty", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "equipment_scan_tools",
+          "label": "Scan Tool Experience (Autel, Snap-On, OEM)",
+          "type": "multi_select",
+          "options": [
+            "Autel",
+            "Snap-On",
+            "Launch",
+            "OEM Ford",
+            "OEM GM",
+            "OEM Chrysler",
+            "OEM BMW/Mini",
+            "OEM Mercedes",
+            "OEM VW/Audi",
+            "Other"
+          ],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "equipment_scope",
+          "label": "Lab Scope Use",
+          "type": "select",
+          "options": ["None", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        }
+      ]
+    },
+    {
+      "id": "advisor_skills",
+      "label": "Service Advisor Skills",
+      "description": "Section 5 – Advisor skills: on application AND editable by admin.",
+      "applies_to_positions": [
+        "Service Advisor",
+        "Service Writer (Junior Advisor)",
+        "Service Manager",
+        "General Manager",
+        "Customer Service Agent"
+      ],
+      "fields": [
+        {
+          "key": "skill_sales_ability",
+          "label": "Sales Ability (Self-Rated)",
+          "type": "select",
+          "options": ["1 - Very low", "2", "3", "4", "5", "6", "7", "8", "9", "10 - Elite"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_customer_service",
+          "label": "Customer Service Strength",
+          "type": "select",
+          "options": ["Below average", "Average", "Above average", "Excellent"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_objection_handling",
+          "label": "Comfort Handling Objections",
+          "type": "select",
+          "options": ["Not comfortable", "Somewhat comfortable", "Comfortable", "Very strong"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_dvi_presentation",
+          "label": "Presenting DVIs to Customers",
+          "type": "select",
+          "options": ["No experience", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_kpi_understanding",
+          "label": "Understanding of GP%, Hours Sold, Car Count",
+          "type": "select",
+          "options": ["None", "Basic", "Intermediate", "Advanced"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_phone_skills",
+          "label": "Phone Skills (Voice, Clarity, Pace)",
+          "type": "select",
+          "options": ["Below average", "Average", "Above average", "Excellent"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "skill_texting_etiquette",
+          "label": "Text/Chat Communication Comfort",
+          "type": "select",
+          "options": ["Not comfortable", "Average", "Above average", "Excellent"],
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "advisor_experience_notes",
+          "label": "Describe Your Service Advisor Experience",
+          "type": "textarea",
+          "required": false,
+          "visibility": "both",
+          "editable_by": ["applicant", "admin"]
+        }
+      ]
+    },
+    {
+      "id": "behavior_traits",
+      "label": "Behavioral Traits (Internal Scorecard)",
+      "description": "Admin-only assessment of soft skills and culture fit.",
+      "fields": [
+        {
+          "key": "trait_reliability",
+          "label": "Reliability",
+          "type": "rating_1_10",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "trait_attitude",
+          "label": "Attitude",
+          "type": "rating_1_10",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "trait_coachability",
+          "label": "Coachability",
+          "type": "rating_1_10",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "trait_work_ethic",
+          "label": "Work Ethic",
+          "type": "rating_1_10",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "trait_communication",
+          "label": "Communication",
+          "type": "rating_1_10",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "trait_team_fit",
+          "label": "Team Fit",
+          "type": "rating_1_10",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "trait_cleanliness",
+          "label": "Cleanliness / Organization",
+          "type": "rating_1_10",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "trait_no_drama_factor",
+          "label": "No-Drama Factor",
+          "type": "rating_1_10",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        }
+      ]
+    },
+    {
+      "id": "eligibility",
+      "label": "Eligibility & Availability",
+      "description": "Work eligibility, schedule, and basics.",
+      "fields": [
+        {
+          "key": "has_valid_license",
+          "label": "Valid Driver's License",
+          "type": "select",
+          "options": ["Yes", "No"],
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "legal_to_work",
+          "label": "Legally Allowed to Work in the US",
+          "type": "select",
+          "options": ["Yes", "No"],
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "willing_drug_test",
+          "label": "Willing to Take a Drug Test",
+          "type": "select",
+          "options": ["Yes", "No"],
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "willing_saturdays",
+          "label": "Willing to Work Saturdays",
+          "type": "select",
+          "options": ["Yes", "No", "Occasionally"],
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        },
+        {
+          "key": "desired_shift",
+          "label": "Desired Shift",
+          "type": "select",
+          "options": ["Full-time", "Part-time", "Open / Flexible"],
+          "required": false,
+          "visibility": "application",
+          "editable_by": ["applicant", "admin"]
+        }
+      ]
+    },
+    {
+      "id": "pipeline",
+      "label": "Hiring Pipeline",
+      "description": "Internal status and stage tracking.",
+      "fields": [
+        {
+          "key": "status",
+          "label": "Current Status",
+          "type": "select",
+          "options": [
+            "NEW",
+            "CONTACTED",
+            "PHONE_SCREEN",
+            "IN_PERSON_1",
+            "IN_PERSON_2",
+            "TECH_TEST",
+            "OFFER_SENT",
+            "OFFER_ACCEPTED",
+            "HIRED",
+            "REJECTED"
+          ],
+          "required": true,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "last_status_change",
+          "label": "Last Status Change",
+          "type": "datetime",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["system"]
+        }
+      ]
+    },
+    {
+      "id": "notes",
+      "label": "Notes & History",
+      "description": "Interview notes, test results, reference checks.",
+      "fields": [
+        {
+          "key": "internal_notes",
+          "label": "Internal Notes (General)",
+          "type": "textarea",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "interview_notes",
+          "label": "Interview Notes",
+          "type": "textarea",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "tech_test_results",
+          "label": "Tech Test Results",
+          "type": "textarea",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "reference_check_notes",
+          "label": "Reference Check Notes",
+          "type": "textarea",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        }
+      ]
+    },
+    {
+      "id": "post_hire",
+      "label": "Post-Hire Tracking",
+      "description": "Only used if they are hired.",
+      "fields": [
+        {
+          "key": "start_date",
+          "label": "Start Date",
+          "type": "date",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "starting_pay",
+          "label": "Starting Pay",
+          "type": "text",
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        },
+        {
+          "key": "retention_flag",
+          "label": "Retention Flag (Would Hire Again)",
+          "type": "select",
+          "options": ["Unknown", "Yes", "No"],
+          "required": false,
+          "visibility": "internal",
+          "editable_by": ["admin"]
+        }
+      ]
+    }
+  ]
+}
