@@ -32,11 +32,12 @@ interface StatusBadgeProps {
 }
 
 export function StatusBadge({ status, className = '' }: StatusBadgeProps) {
+  const colors = statusColors[status] || 'bg-gray-100 text-gray-800';
+  const label = statusLabels[status] || status;
+  
   return (
-    <span
-      className={\`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium \${statusColors[status]} \${className}\`}
-    >
-      {statusLabels[status]}
+    <span className={'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ' + colors + ' ' + className}>
+      {label}
     </span>
   );
 }
