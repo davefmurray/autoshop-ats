@@ -93,7 +93,7 @@ export function Apply() {
         email: formData.email,
         phone: formData.phone,
         position_applied: formData.position_applied,
-        source: formData.source || null,
+        source: formData.source || undefined,
         form_data,
       });
 
