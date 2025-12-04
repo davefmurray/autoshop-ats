@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { createApplicant, getShopById, uploadResume } from '../lib/api';
+import { createApplicant, getShopBySlug, uploadResume } from '../lib/api';
 import { POSITIONS, SOURCES, ASE_CERTS, TECH_POSITIONS, type Shop } from '../lib/types';
 
 export function Apply() {
@@ -37,7 +37,7 @@ export function Apply() {
       setShopError('No shop specified. Please use a valid application link.');
       return;
     }
-    getShopById(shopId)
+    getShopBySlug(shopId)
       .then(setShop)
       .catch(() => setShopError('Shop not found. Please check your application link.'));
   }, [shopId]);
